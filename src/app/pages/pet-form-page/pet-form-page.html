@@ -1,0 +1,206 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="container my-4">
+
+  <h4>Datos del dueño</h4>
+
+
+  <div class="mb-3">
+    <label for="first-name" class="form-label">Nombre <span class="text-danger">*</span></label>
+    <input id="first-name" type="text" formControlName="firstName" class="form-control"
+      [class.is-invalid]="isInvalidField('firstName')" />
+    @if (isInvalidField('firstName')) {
+      <div class="invalid-feedback">
+        @if (hasError('firstName', 'required')) { El nombre es obligatorio. }
+        @if (hasError('firstName', 'minlength')) { Mínimo 2 caracteres. }
+        @if (hasError('firstName', 'maxlength')) { Máximo 30 caracteres. }
+        @if (hasError('firstName', 'pattern')) { Solo se permiten letras. }
+      </div>
+    }
+  </div>
+
+
+  <div class="mb-3">
+    <label for="last-name" class="form-label">Apellidos <span class="text-danger">*</span></label>
+    <input id="last-name" type="text" formControlName="lastName" class="form-control"
+      [class.is-invalid]="isInvalidField('lastName')" />
+    @if (isInvalidField('lastName')) {
+      <div class="invalid-feedback">
+        @if (hasError('lastName', 'required')) { El apellido es obligatorio. }
+        @if (hasError('lastName', 'minlength')) { Mínimo 2 caracteres. }
+        @if (hasError('lastName', 'maxlength')) { Máximo 50 caracteres. }
+        @if (hasError('lastName', 'pattern')) { Solo se permiten letras. }
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="phone" class="form-label">Teléfono <span class="text-danger">*</span></label>
+    <input id="phone" type="tel" formControlName="phone" class="form-control"
+      [class.is-invalid]="isInvalidField('phone')" />
+    @if (isInvalidField('phone')) {
+      <div class="invalid-feedback">
+        @if (hasError('phone', 'required')) { El teléfono es obligatorio. }
+        @if (hasError('phone', 'pattern')) { Introduce un teléfono válido. }
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+    <input id="email" type="email" formControlName="email" class="form-control"
+      [class.is-invalid]="isInvalidField('email')" />
+    @if (isInvalidField('email')) {
+      <div class="invalid-feedback">
+        @if (hasError('email', 'required')) { El email es obligatorio }
+        @if (hasError('email', 'email')) { Formato de email no válido }
+      </div>
+    }
+  </div>
+
+   <h4>Datos del animal</h4>
+
+  <div class="mb-3">
+    <label for="pet-name" class="form-label">Nombre de la mascota<span class="text-danger">*</span></label>
+    <input id="pet-name" type="text" formControlName="petName" class="form-control"
+      [class.is-invalid]="isInvalidField('petName')" />
+    @if (isInvalidField('petName')) {
+      <div class="invalid-feedback">
+        @if (hasError('petName', 'required')) { El nombre es obligatorio }
+        @if (hasError('petName', 'minlength') || hasError('petName', 'maxlength')) { Entre 2 y 20 caracteres }
+        @if (hasError('petName', 'pattern')) { Solo se permiten letras, espacios y guiones }
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="species" class="form-label">Especie <span class="text-danger">*</span></label>
+    <select id="species" formControlName="species" class="form-select"
+      [class.is-invalid]="isInvalidField('species')">
+      <option value="">-Elige una especie-</option>
+      @for (s of species; track s) {
+        <option [value]="s">{{ s }}</option>
+      }
+    </select>
+    @if (isInvalidField('species')) {
+      <div class="invalid-feedback">Selecciona una especie</div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label d-block">Sexo <span class="text-danger">*</span></label>
+    <div class="form-check">
+      <input id="male" type="radio" formControlName="sex" value="Macho" class="form-check-input"
+        [class.is-invalid]="isInvalidField('sex')" />
+      <label for="male" class="form-check-label">Macho</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input id="female" type="radio" formControlName="sex" value="Hembra" class="form-check-input"
+        [class.is-invalid]="isInvalidField('sex')" />
+      <label for="female" class="form-check-label">Hembra</label>
+    </div>
+    @if (isInvalidField('sex')) {
+      <div class="invalid-feedback">Indica el sexo de la mascota</div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="breed" class="form-label">Raza </label>
+    <input id="breed" type="text" formControlName="breed" class="form-control"
+      [class.is-invalid]="isInvalidField('breed')" />
+    @if (isInvalidField('breed')) {
+      <div class="invalid-feedback">
+        @if (hasError('breed', 'maxlength')) { Máximo 40 caracteres }
+      </div>
+    }
+  </div>
+  
+  <div class="mb-3">
+    <label for="age" class="form-label">Edad (años) <span class="text-danger">*</span></label>
+    <input id="age" type="number" formControlName="age" class="form-control"
+      [class.is-invalid]="isInvalidField('age')" />
+    @if (isInvalidField('age')) {
+      <div class="invalid-feedback">
+        @if (hasError('age', 'required')) { La edad es obligatoria }
+        @if (hasError('age', 'min') || hasError('age', 'max')) { La edad debe estar entre 0 y 30 años }
+      </div>
+    }
+  </div>
+
+    <div class="mb-3">
+    <label for="weight" class="form-label">Peso<span class="text-danger">*</span></label>
+    <input id="weight" type="number" formControlName="weight" class="form-control"
+      [class.is-invalid]="isInvalidField('weight')" />
+    @if (isInvalidField('weight')) {
+      <div class="invalid-feedback">
+        @if (hasError('weight', 'required')) { El peso es obligatorio }
+        @if (hasError('weight', 'min') || hasError('weight', 'max')) { El peso debe estar entre 0,1 y 90 kg }
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="microchip" class="form-label">Número de microchip <span class="text-danger">*</span></label>
+    <input id="microchip" type="text" formControlName="microchip" class="form-control"
+      [class.is-invalid]="isInvalidField('microchip')" />
+    @if (isInvalidField('microchip')) {
+      <div class="invalid-feedback">
+        @if (hasError('microchip', 'required')) { El microchip es obligatorio }
+        @if (hasError('microchip', 'pattern')) { El microchip debe tener exactamente 15 dígitos numéricos }
+      </div>
+    }
+  </div>
+
+   <h4>Datos de acceso</h4>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Contraseña <span class="text-danger">*</span></label>
+    <input id="password" type="password" formControlName="password" class="form-control"
+      [class.is-invalid]="isInvalidField('password')" />
+    @if (isInvalidField('password')) {
+      <div class="invalid-feedback">
+        @if (hasError('password', 'required')) { <div>La contraseña es obligatoria</div> }
+        @if (hasError('password', 'minlength') || hasError('password', 'maxlength')) {
+          <div>Entre 10 y 24 caracteres</div>
+        }
+        @if (!password().match('[A-Z]')) { <div>Debe contener al menos una mayúscula</div> }
+        @if (!password().match('[a-z]')) { <div>Debe contener al menos una minúscula</div> }
+        @if (!password().match('[0-9]')) { <div>Debe contener al menos un número</div> }
+        @if (password().includes(' ')) { <div>No puede contener espacios</div> }
+      </div>
+    }
+  </div>
+
+
+
+
+<div class="mb-3">
+    <label for="reason" class="form-label">Motivo de la primera visita <span class="text-danger">*</span></label>
+    <input id="reason" type="text" formControlName="reason" class="form-control"
+      [class.is-invalid]="isInvalidField('reason')" />
+    @if (isInvalidField('microchip')) {
+      <div class="invalid-feedback">
+        @if (hasError('reason', 'required')) { La razón es obligatoria. }
+        @if (hasError('age', 'minlength') || hasError('age', 'maxlength')) { Entre 10 y 300 caracteres. }
+      </div>
+    }
+  </div>
+
+
+  <div class="form-check mb-3">
+    <input id="privacy" type="checkbox" formControlName="privacy" class="form-check-input"
+      [class.is-invalid]="isInvalidField('privacy')" />
+    <label for="privacy" class="form-check-label">Acepto la política de privacidad <span class="text-danger">*</span></label>
+    @if (isInvalidField('privacy')) {
+      <div class="invalid-feedback">Debes aceptar la política de privacidad</div>
+    }
+  </div>
+
+  <div class="form-check mb-3">
+    <input id="reminders" type="checkbox" formControlName="reminders" class="form-check-input"
+      [class.is-invalid]="isInvalidField('reminders')" />
+    <label for="reminders" class="form-check-label">Acepto recibir recordatorios de vacunas y la cesión de los datos del animal para su futura venta en el mercado chino</label>
+  </div>
+
+  <p>Complete the form to enable button.</p>
+  <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary">Submit</button>
+
+  </form>
